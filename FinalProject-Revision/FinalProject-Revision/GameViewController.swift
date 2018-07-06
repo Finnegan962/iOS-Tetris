@@ -73,12 +73,12 @@ class GameViewController: UIViewController, GameMasterDelegate, UIGestureRecogni
     func gameShapeDidLand(gamemaster: GameMaster) {
         scene.stopTicking()
         self.view.isUserInteractionEnabled = false
-        // #10
+        //recover two arrays from gamemaster
         let removedLines = gamemaster.removeCompletedLines()
         if removedLines.linesRemoved.count > 0 {
             self.scoreLabel.text = "\(gamemaster.score)"
             scene.animateCollapsingLines(linesToRemove: removedLines.linesRemoved, fallenBlocks:removedLines.fallenBlocks) {
-                // #11
+                //after animation completes, perform recursive call
                 self.gameShapeDidLand(gamemaster: gamemaster)
             }
             scene.playSound(sound: "Sounds/bomb.mp3")
